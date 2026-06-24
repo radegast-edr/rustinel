@@ -46,3 +46,5 @@ tests/**/*
 rules-bench/
 *.pyc
 __pycache__/
+
+.toolchains
