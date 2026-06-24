@@ -1,4 +1,10 @@
 fn main() {
+    // Forward the RADEGAST_PATCH_VERSION env var (defaulting to "0" if not set)
+    // to the compiler.
+    let patch_version = std::env::var("RADEGAST_PATCH_VERSION").unwrap_or_else(|_| "0".to_string());
+    println!("cargo:rustc-env=RADEGAST_PATCH_VERSION={}", patch_version);
+    println!("cargo:rerun-if-env-changed=RADEGAST_PATCH_VERSION");
+
     // Only build/embed eBPF programs when compiling for Linux.
     let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap_or_default();
     if target_os == "linux" {

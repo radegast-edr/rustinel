@@ -7,7 +7,7 @@ use tracing::info;
 use tracing_appender::rolling;
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
-const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
+const APP_VERSION: &str = concat!(env!("CARGO_PKG_VERSION"), "r", env!("RADEGAST_PATCH_VERSION"));
 const STARTUP_BANNER_INNER_WIDTH: usize = 49;
 /// Tracing target for messages intended for an interactive console.
 pub const TARGET_CONSOLE: &str = "console";
