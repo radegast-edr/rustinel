@@ -1,6 +1,10 @@
 # Rust build artifacts
 /target/
 
+# -- RADEGAST START --
+.toolchains
+# -- RADEGAST  END  --
+
 # Docs site built by `zensical build`
 /site/
 ebpf/target/

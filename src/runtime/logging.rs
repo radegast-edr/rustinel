@@ -8,7 +8,7 @@ use std::path::{Path, PathBuf};
 use tracing::info;
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter, Layer};
 
-const APP_VERSION: &str = env!("CARGO_PKG_VERSION");
+const APP_VERSION: &str = concat!(env!("CARGO_PKG_VERSION"), "r", env!("RADEGAST_PATCH_VERSION"));
 const STARTUP_BANNER_INNER_WIDTH: usize = 49;
 pub use crate::vocab::TARGET_CONSOLE;
 const DEFAULT_CONSOLE_FILTER: &str = "warn,console=info,engine=info,response=info";
