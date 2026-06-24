@@ -1,6 +1,6 @@
 #[derive(clap::Parser)]
 #[command(name = "rustinel")]
-#[command(version)]
+#[command(version = concat!(env!("CARGO_PKG_VERSION"), "r", env!("RADEGAST_PATCH_VERSION")))]
 #[command(about = "High-Performance Rust EDR", long_about = None)]
 pub struct Cli {
     #[command(subcommand)]
