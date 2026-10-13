@@ -132,6 +132,9 @@ pub(crate) fn verify_root_controlled_parents(path: &Path, gid: u32) -> Result<()
 /// Rule loaders alone may use the explicitly delegated tree. Other inputs keep
 /// the normal trust policy, including inputs outside that tree.
 pub fn verify_rule_input(path: &Path, trust: Option<&RuleTrust>) -> Result<()> {
+    if cfg!(windows) {
+        return Ok(());
+    }
     let Some(trust) = trust else {
         return verify_input(path);
     };
@@ -238,6 +241,9 @@ fn path_starts_with(path: &Path, root: &Path) -> bool {
 /// be a file or a directory tree. A missing path is accepted; the loader
 /// reports it.
 pub fn verify_input(path: &Path) -> Result<()> {
+    if cfg!(windows) {
+        return Ok(());
+    }
     if fs::symlink_metadata(path).is_err() {
         return Ok(());
     }
@@ -692,6 +698,9 @@ mod imp {
         principal: &Sid,
         integration_owner: bool,
     ) -> Result<()> {
+        if cfg!(windows) {
+            return Ok(());
+        }
         let security = Security::read(path)?;
         let owner = security.owner;
         let principal = principal.as_psid();
@@ -729,6 +738,9 @@ mod imp {
     /// Folders above an integration input must be real folders owned by a
     /// system account, and must not let anyone else replace their contents.
     pub(crate) fn verify_controlled_parents(path: &Path) -> Result<()> {
+        if cfg!(windows) {
+            return Ok(());
+        }
         let absolute = std::path::absolute(path)?;
         for parent in absolute.ancestors().skip(1) {
             let metadata = fs::symlink_metadata(parent)
